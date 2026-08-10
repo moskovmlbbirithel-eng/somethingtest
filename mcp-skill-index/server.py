@@ -548,8 +548,8 @@ def get_org_skill_inventory() -> dict:
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
-    transport = os.environ.get("TRANSPORT", "streamable-http")
+    transport = os.environ.get("TRANSPORT", "sse")  # SSE transport for Salesforce Agentforce MCP connection
     print(f"[BidSense Skill Index] Starting on port {port} with transport={transport}")
-    print(f"  Postman / REST: POST http://localhost:{port}/mcp")
-    print(f"  MCP Inspector : http://localhost:6274")
+    print(f"  Salesforce SSE URL: http://localhost:{port}/sse")
+    print(f"  MCP Inspector     : http://localhost:6274")
     mcp.run(transport=transport, host="0.0.0.0", port=port)
