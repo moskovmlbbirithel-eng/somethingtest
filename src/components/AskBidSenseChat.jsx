@@ -67,7 +67,7 @@ export default function AskBidSenseChat({ opportunityId }) {
       {/* Messages Log */}
       <div className="chat-history">
         {messages.map((msg, idx) => (
-          <div key={idx} className={`chat-bubble ${msg.sender}`}>
+          <div key={idx} className={`chat-bubble ${msg.sender}`} style={{ whiteSpace: 'pre-wrap' }}>
             {msg.text}
           </div>
         ))}

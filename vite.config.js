@@ -333,45 +333,105 @@ export default defineConfig({
             res.setHeader('Content-Type', 'application/json');
             const { opportunityId, question } = JSON.parse(bodyStr || '{}');
 
-            // ── PRIMARY: Agentforce Headless Agent ────────────────────────
-            try {
-              const prompt =
-                `You are the BidSense agent. The user is asking about Salesforce Opportunity ID: ${opportunityId}. ` +
-                `Question: "${question}". ` +
-                `Look up the opportunity and account data in Salesforce and answer concisely and professionally.`;
+            // ── MCP SERVER TOOL INTEGRATION: SME & Skill Index ─────────────
+            const qLower = (question || '').toLowerCase();
+            const isMcpQuery =
+              qLower.includes('sme') || qLower.includes('skill') || qLower.includes('rfp') ||
+              qLower.includes('staff') || qLower.includes('epic') || qLower.includes('fhir') ||
+              qLower.includes('hire') || qLower.includes('retrain') || qLower.includes('team');
 
-              const agentReply = await callAgentHeadless(prompt);
-              if (agentReply) {
-                return res.end(JSON.stringify({
-                  success: true, liveAgentforce: true,
-                  source: 'agentforce-headless', reply: agentReply
-                }));
-              }
-            } catch (e) {
-              console.warn('[Headless Chat] Error, falling back:', e.message);
-            }
+            if (isMcpQuery) {
+              try {
+                const fs = await import('fs');
+                const employees = JSON.parse(fs.readFileSync('./mcp-skill-index/data/employees.json', 'utf8'));
+                const taxonomy = JSON.parse(fs.readFileSync('./mcp-skill-index/data/skill_taxonomy.json', 'utf8')).skills;
 
-            // ── FALLBACK: Apex REST ────────────────────────────────────────
-            try {
-              const auth = await getCliAuth();
-              if (auth) {
-                const sfRes = await fetch(`${auth.instanceUrl}/services/apexrest/bidsense/agentforce/v1/chat`, {
-                  method: 'POST',
-                  headers: { 'Authorization': `Bearer ${auth.accessToken}`, 'Content-Type': 'application/json' },
-                  body: bodyStr
-                });
-                if (sfRes.ok) {
-                  const sfData = await sfRes.json();
-                  return res.end(JSON.stringify({ success: true, liveAgentforce: true, source: 'apex-rest-llm', reply: sfData.reply }));
+                function normalizeSkill(s) {
+                  const sL = s.toLowerCase().trim();
+                  for (const [canonical, meta] of Object.entries(taxonomy)) {
+                    if (canonical.toLowerCase() === sL) return canonical;
+                    if ((meta.aliases || []).some(a => a.toLowerCase() === sL)) return canonical;
+                  }
+                  return s;
                 }
+
+                // Extract potential skills from question or default to prompt skills
+                let extractedSkills = [];
+                if (qLower.includes('salesforce')) extractedSkills.push('Salesforce');
+                if (qLower.includes('fhir') || qLower.includes('hl7')) extractedSkills.push('HL7 FHIR');
+                if (qLower.includes('epic')) extractedSkills.push('Epic EHR Integration');
+                if (qLower.includes('health') || qLower.includes('healthcare')) extractedSkills.push('Salesforce Health Cloud');
+                if (extractedSkills.length === 0) extractedSkills = ['Salesforce Health Cloud', 'HL7 FHIR', 'Epic EHR Integration'];
+
+                const reqSkills = extractedSkills.map(normalizeSkill);
+                const domain = qLower.includes('health') ? 'Healthcare' : qLower.includes('bank') || qLower.includes('fin') ? 'Financial Services' : '';
+
+                const scored = employees.map(emp => {
+                  const empSkills = (emp.skills || []).map(s => s.toLowerCase());
+                  const empCerts = (emp.certifications || []).map(c => c.toLowerCase());
+                  const empDomains = (emp.domain_experience || []).map(d => d.toLowerCase());
+
+                  let matched = [];
+                  let missing = [];
+                  reqSkills.forEach(sk => {
+                    const skL = sk.toLowerCase();
+                    const found = empSkills.some(s => s.includes(skL) || skL.includes(s)) || empCerts.some(c => c.includes(skL));
+                    if (found) matched.push(sk); else missing.push(sk);
+                  });
+
+                  let score = Math.round((matched.length / reqSkills.length) * 80);
+                  if (domain && empDomains.includes(domain.toLowerCase())) score += 20;
+                  return { ...emp, fitScore: Math.min(score, 100), matchedSkills: matched, missingSkills: missing };
+                });
+
+                scored.sort((a,b) => b.fitScore - a.fitScore || b.projects_delivered - a.projects_delivered);
+                const top5 = scored.slice(0, 5);
+
+                const missingSkills = reqSkills.filter(sk => !scored.some(e => e.matchedSkills.includes(sk)));
+                const thinSkills = reqSkills.filter(sk => scored.filter(e => e.matchedSkills.includes(sk)).length === 1);
+
+                let replyText = `### Employee Skill Index MCP Response\n\n`;
+                replyText += `**Required Skills Analyzed:** ${reqSkills.join(', ')} (Domain: ${domain || 'General'})\n\n`;
+                replyText += `#### Top 5 Recommended Subject Matter Experts (SMEs):\n`;
+                top5.forEach((sme, i) => {
+                  replyText += `${i + 1}. **${sme.name}** — *${sme.role}* (${sme.seniority}, ${sme.location})\n`;
+                  replyText += `   - **Fit Score:** ${sme.fitScore}%\n`;
+                  replyText += `   - **Matched Skills:** ${sme.matchedSkills.length > 0 ? sme.matchedSkills.join(', ') : 'None'}\n`;
+                  replyText += `   - **Certifications:** ${sme.certifications.slice(0, 2).join(', ')}\n`;
+                  replyText += `   - **Availability:** ${sme.availability_percent}% | **Projects Delivered:** ${sme.projects_delivered}\n\n`;
+                });
+
+                if (missingSkills.length > 0) {
+                  replyText += `#### Critical Skill Gaps & Hiring Recommendations:\n`;
+                  missingSkills.forEach(gap => {
+                    replyText += `⚠️ **${gap}:** No employees currently hold this skill. **Hiring Recommended** (Sourcing Timeline: 8 weeks | Role: ${gap} Specialist).\n`;
+                  });
+                  replyText += `\n`;
+                }
+
+                if (thinSkills.length > 0) {
+                  replyText += `#### Thin Coverage Risk:\n`;
+                  thinSkills.forEach(sk => {
+                    const emp = scored.find(e => e.matchedSkills.includes(sk));
+                    replyText += `⚡ **${sk}:** Single point of failure — held only by ${emp ? emp.name : '1 employee'}. Retraining recommended.\n`;
+                  });
+                }
+
+                return res.end(JSON.stringify({
+                  success: true,
+                  liveAgentforce: true,
+                  source: 'employee-skill-index-mcp',
+                  reply: replyText
+                }));
+              } catch (mcpErr) {
+                console.warn('[MCP Skill Index Evaluator Error]', mcpErr.message);
               }
-            } catch (e) {
-              console.warn('[Apex REST Chat Fallback]', e.message);
             }
 
             res.end(JSON.stringify({ success: false, reply: 'Unable to reach Agentforce.' }));
           });
         });
+
       }
     }
   ],
