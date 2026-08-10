@@ -547,9 +547,38 @@ def get_org_skill_inventory() -> dict:
 # ── Entry Point ───────────────────────────────────────────
 
 if __name__ == "__main__":
+    import uvicorn
+    from starlette.middleware.cors import CORSMiddleware
+    from starlette.responses import JSONResponse
+
     port = int(os.environ.get("PORT", 8000))
-    transport = os.environ.get("TRANSPORT", "sse")  # SSE transport for Salesforce Agentforce MCP connection
+    transport = os.environ.get("TRANSPORT", "sse")
+
     print(f"[BidSense Skill Index] Starting on port {port} with transport={transport}")
-    print(f"  Salesforce SSE URL: http://localhost:{port}/sse")
-    print(f"  MCP Inspector     : http://localhost:6274")
-    mcp.run(transport=transport, host="0.0.0.0", port=port)
+    print(f"  Salesforce SSE URL : http://localhost:{port}/sse")
+    print(f"  Root Health Check  : http://localhost:{port}/")
+
+    app = mcp.http_app(transport=transport)
+
+    # Enable CORS for Salesforce and cross-origin clients
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
+
+    # Add root health check route for Salesforce URL reachability validation
+    async def root_health_check(request):
+        return JSONResponse({
+            "status": "ok",
+            "name": "BidSense Employee Skill Index MCP Server",
+            "transport": transport,
+            "sse_endpoint": "/sse",
+            "mcp_endpoint": "/mcp"
+        })
+
+    app.add_route("/", root_health_check, methods=["GET", "HEAD"])
+
+    uvicorn.run(app, host="0.0.0.0", port=port)
