@@ -8,6 +8,7 @@ global with sharing class BidSenseAgentforceAPI {
     global class QARequest {
         global String opportunityId;
         global String question;
+        global String sessionId;  // optional — omit on first turn, pass back on follow-ups
     }
 
     global class FitBreakdown {
@@ -39,6 +40,7 @@ global with sharing class BidSenseAgentforceAPI {
 
     global class QAResponse {
         global String reply;
+        global String sessionId;   // return to frontend so it can pass back on next turn
         global String opportunityId;
         global String timestamp;
     }
@@ -63,7 +65,7 @@ global with sharing class BidSenseAgentforceAPI {
                 QARequest qaReq = (QARequest) JSON.deserialize(
                     req.requestBody.toString(), QARequest.class
                 );
-                QAResponse payload = executeAgentforceQA(qaReq.opportunityId, qaReq.question);
+                QAResponse payload = executeAgentforceQA(qaReq.opportunityId, qaReq.question, qaReq.sessionId);
                 res.responseBody = Blob.valueOf(JSON.serialize(payload));
 
             } else {
@@ -133,34 +135,64 @@ global with sharing class BidSenseAgentforceAPI {
     }
 
     // ── /chat ────────────────────────────────────────────────────────────────────
-    // For the Ask BidSense chat panel: passes question + opp context to LLM
-    // and returns the raw natural language reply. No templating.
-    private static QAResponse executeAgentforceQA(String oppId, String question) {
-        Opportunity opp = [
-            SELECT Id, Name, Account.Name, Amount, StageName, Probability, CloseDate
-            FROM Opportunity
-            WHERE Id = :oppId
-            LIMIT 1
-        ];
+    // Sends the user’s question directly to the Agentforce Agent via Invocable.Action.
+    // Pass in sessionId from a previous turn to maintain conversation context.
+    // The agent decides which MCP tools to call — no keyword matching, no direct Render calls.
+    private static QAResponse executeAgentforceQA(String oppId, String question, String incomingSessionId) {
+        String replyText   = '';
+        String returnedSessionId = '';
 
-        String prompt =
-            'You are BidSense, an expert bid qualification AI assistant embedded inside Salesforce.\n\n'
-          + 'Opportunity context:\n'
-          + '  Name: '   + opp.Name + '\n'
-          + '  Account: ' + (opp.Account != null ? opp.Account.Name : 'Unknown') + '\n'
-          + '  Stage: '  + opp.StageName + '\n'
-          + '  Amount: $' + (opp.Amount != null ? opp.Amount.format() : '0') + '\n'
-          + '  Close Date: ' + String.valueOf(opp.CloseDate) + '\n'
-          + '  Win Probability: ' + opp.Probability + '%\n\n'
-          + 'User question: ' + question + '\n\n'
-          + 'Respond concisely and professionally in plain text (no JSON, no markdown headers).';
+        try {
+            Invocable.Action action = Invocable.Action.createCustomAction(
+                'generateAiAgentResponse',
+                'BidSense_Agent'
+            );
+            action.setInvocationParameter('userMessage', question);
+            // Pass sessionId if we have one from a prior turn
+            if (String.isNotBlank(incomingSessionId)) {
+                action.setInvocationParameter('sessionId', incomingSessionId);
+            }
 
-        String llmReply = BidSenseAgentInvocableAction.callEinsteinLLM(prompt);
+            List<Invocable.Action.Result> results = action.invoke();
 
-        QAResponse resp     = new QAResponse();
-        resp.reply          = llmReply;
-        resp.opportunityId  = oppId;
-        resp.timestamp      = String.valueOf(Datetime.now());
+            if (!results.isEmpty() && results[0].isSuccess()) {
+                Map<String, Object> outputs = results[0].getOutputParameters();
+
+                // Capture the sessionId returned by the agent for the next turn
+                Object sid = outputs.get('sessionId');
+                if (sid != null) returnedSessionId = String.valueOf(sid);
+
+                Object agentResp = outputs.get('agentResponse');
+                if (agentResp != null) {
+                    // agentResponse is a Map<String,Object>: {type:'Text', value:'...'}
+                    try {
+                        Map<String, Object> respMap = (Map<String, Object>) agentResp;
+                        Object val = respMap.get('value');
+                        replyText = val != null ? String.valueOf(val) : String.valueOf(agentResp);
+                    } catch (Exception castEx) {
+                        try {
+                            Map<String, Object> respMap = (Map<String, Object>) JSON.deserializeUntyped(String.valueOf(agentResp));
+                            Object val = respMap.get('value');
+                            replyText = val != null ? String.valueOf(val) : String.valueOf(agentResp);
+                        } catch (Exception parseEx) {
+                            replyText = String.valueOf(agentResp);
+                        }
+                    }
+                }
+            } else if (!results.isEmpty()) {
+                System.debug('[BidSenseAgentforceAPI] Agent errors: ' + results[0].getErrors());
+            }
+        } catch (Exception e) {
+            System.debug('[BidSenseAgentforceAPI] Agentforce invocation failed: ' + e.getMessage());
+        }
+
+        QAResponse resp    = new QAResponse();
+        resp.reply         = String.isNotBlank(replyText)
+                             ? replyText
+                             : 'The Agentforce Agent could not process your request. Please try again.';
+        resp.sessionId     = returnedSessionId;
+        resp.opportunityId = oppId;
+        resp.timestamp     = String.valueOf(Datetime.now());
         return resp;
     }
 }

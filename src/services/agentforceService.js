@@ -72,29 +72,35 @@ export async function analyzeOpportunity(opportunityId) {
 }
 
 /**
- * Executes Q&A interaction with Agentforce in your Salesforce Org
- * @param {string} opportunityId 
- * @param {string} userQuestion 
- * @returns {Promise<string>} Agent response
+ * Executes Q&A interaction with the live Agentforce Agent in your Salesforce Org.
+ * Pass sessionId from the previous response to maintain multi-turn context.
+ * @param {string} opportunityId
+ * @param {string} userQuestion
+ * @param {string|null} sessionId  - pass null/undefined on first turn
+ * @returns {Promise<{reply: string, sessionId: string}>}
  */
-export async function askAgentforce(opportunityId, userQuestion) {
+export async function askAgentforce(opportunityId, userQuestion, sessionId = null) {
   try {
     const response = await fetch('/api/agentforce/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ opportunityId, question: userQuestion })
+      body: JSON.stringify({ opportunityId, question: userQuestion, sessionId: sessionId || undefined })
     });
 
     if (response.ok) {
       const payload = await response.json();
       if (payload.success && payload.reply) {
-        return payload.reply;
+        return { reply: payload.reply, sessionId: payload.sessionId || null };
       }
     }
   } catch (err) {
-    console.info('[Agentforce Q&A] Live API unavailable, running client Q&A:', err.message);
+    console.info('[Agentforce Q&A] Live API unavailable:', err.message);
   }
 
   const opp = await getOpportunityById(opportunityId);
-  return `Agentforce Assistant (Salesforce Org): Evaluated "${opp.name}" (${opp.account}). Stage: ${opp.stage}, Amount: $${(opp.amount || 0).toLocaleString()}.`;
+  return {
+    reply: `Agentforce Assistant: Evaluated "${opp.name}" (${opp.account}). Stage: ${opp.stage}, Amount: $${(opp.amount || 0).toLocaleString()}.`,
+    sessionId: null
+  };
 }
+

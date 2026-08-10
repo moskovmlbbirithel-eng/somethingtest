@@ -1,36 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { askAgentforce } from '../services/agentforceService.js';
 
 export default function AskBidSenseChat({ opportunityId }) {
   const [messages, setMessages] = useState([
     {
       sender: 'agent',
-      text: 'Ask me anything about this opportunity qualification! You can pick a question below or type your own.'
+      text: 'Ask me anything about this opportunity! I can look up employees, find SMEs, or answer any bid qualification question.'
     }
   ]);
   const [inputQuery, setInputQuery] = useState('');
   const [isAsking, setIsAsking] = useState(false);
+  // Track whether a session is active to trigger re-render for the indicator
+  const [sessionActive, setSessionActive] = useState(false);
+
+  // Persists the Agentforce session across turns without causing re-renders on every message
+  const sessionIdRef = useRef(null);
+
+  // Reset session when the opportunity changes
+  useEffect(() => {
+    sessionIdRef.current = null;
+    setSessionActive(false);
+    setMessages([{
+      sender: 'agent',
+      text: 'Ask me anything about this opportunity! I can look up employees, find SMEs, or answer any bid qualification question.'
+    }]);
+  }, [opportunityId]);
 
   const samplePrompts = [
-    "Why did you recommend bidding?",
-    "What is the biggest risk?",
-    "Which requirements are difficult for us to satisfy?"
+    "Get the details of EMP001 employee",
+    "Find the top 5 SMEs for Salesforce & FHIR",
+    "What is the biggest risk for this bid?"
   ];
 
   const handleSendQuestion = async (queryText) => {
     const textToSend = queryText || inputQuery;
     if (!textToSend.trim() || isAsking) return;
 
-    // Append user message
-    const userMsg = { sender: 'user', text: textToSend };
-    setMessages((prev) => [...prev, userMsg]);
+    setMessages((prev) => [...prev, { sender: 'user', text: textToSend }]);
     setInputQuery('');
     setIsAsking(true);
 
     try {
-      // Call isolated Agentforce Q&A service
-      const agentReply = await askAgentforce(opportunityId, textToSend);
-      setMessages((prev) => [...prev, { sender: 'agent', text: agentReply }]);
+      const { reply, sessionId: newSessionId } = await askAgentforce(
+        opportunityId,
+        textToSend,
+        sessionIdRef.current  // pass existing session for multi-turn context
+      );
+
+      // Store session ID for the next turn
+      if (newSessionId && newSessionId !== sessionIdRef.current) {
+        sessionIdRef.current = newSessionId;
+        setSessionActive(true);  // trigger indicator re-render once
+      }
+
+      setMessages((prev) => [...prev, { sender: 'agent', text: reply }]);
     } catch (err) {
       setMessages((prev) => [
         ...prev,
@@ -45,8 +68,15 @@ export default function AskBidSenseChat({ opportunityId }) {
     <div className="chat-card">
       <div className="card-title">
         <span>Ask BidSense (AI Agent Assistant)</span>
-        <span style={{ fontSize: '12px', fontWeight: '500', color: 'var(--sf-blue-primary)' }}>
-          Agentforce Q&A Mode
+        <span style={{ fontSize: '12px', fontWeight: '500', display: 'flex', alignItems: 'center', gap: '6px' }}>
+          {sessionActive ? (
+            <>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#22c55e', display: 'inline-block' }} />
+              <span style={{ color: '#22c55e' }}>Session Active</span>
+            </>
+          ) : (
+            <span style={{ color: 'var(--sf-blue-primary)' }}>Agentforce Q&amp;A Mode</span>
+          )}
         </span>
       </div>
 
@@ -73,7 +103,7 @@ export default function AskBidSenseChat({ opportunityId }) {
         ))}
         {isAsking && (
           <div className="chat-bubble agent" style={{ fontStyle: 'italic', color: '#666' }}>
-            Agentforce is evaluating context...
+            Agentforce is thinking...
           </div>
         )}
       </div>
