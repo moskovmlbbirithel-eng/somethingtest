@@ -558,7 +558,11 @@ if __name__ == "__main__":
     print(f"  Salesforce SSE URL : http://localhost:{port}/sse")
     print(f"  Root Health Check  : http://localhost:{port}/")
 
-    app = mcp.http_app(transport=transport)
+    app = mcp.http_app(
+        transport=transport,
+        allowed_hosts=["*"],
+        allowed_origins=["*"],
+    )
 
     # Enable CORS for Salesforce and cross-origin clients
     app.add_middleware(
