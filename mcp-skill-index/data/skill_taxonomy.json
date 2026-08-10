@@ -1,7 +1,7 @@
 {
   "skills": {
     "Salesforce Health Cloud": {
-      "aliases": ["Health Cloud", "SF Health Cloud", "Salesforce HC", "SFHC"],
+      "aliases": ["Health Cloud", "SF Health Cloud", "Salesforce HC", "SFHC", "Healthcare Cloud"],
       "category": "Salesforce Platform",
       "proficiency_levels": ["Associate", "Consultant", "Architect"],
       "retraining": {
@@ -235,7 +235,7 @@
       "hire_recommended": false
     },
     "Epic EHR Integration": {
-      "aliases": ["Epic Systems", "Epic EMR", "Epic MyChart", "Epic Integration"],
+      "aliases": ["Epic Systems", "Epic EMR", "Epic MyChart", "Epic Integration", "Epic EHR", "Epic"],
       "category": "Healthcare Domain",
       "proficiency_levels": ["Analyst", "Developer", "Architect"],
       "retraining": {
