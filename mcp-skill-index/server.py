@@ -549,7 +549,7 @@ def get_org_skill_inventory() -> dict:
 if __name__ == "__main__":
     import uvicorn
     from starlette.middleware.cors import CORSMiddleware
-    from starlette.responses import JSONResponse
+    from starlette.responses import JSONResponse, RedirectResponse
 
     port = int(os.environ.get("PORT", 8000))
     transport = os.environ.get("TRANSPORT", "sse")
@@ -579,6 +579,11 @@ if __name__ == "__main__":
             "mcp_endpoint": "/mcp"
         })
 
+    # Alias handler if Salesforce appends /sse to a URL that already ends with /sse
+    async def sse_alias_handler(request):
+        return RedirectResponse(url="/sse", status_code=307)
+
     app.add_route("/", root_health_check, methods=["GET", "HEAD"])
+    app.add_route("/sse/sse", sse_alias_handler, methods=["GET", "HEAD"])
 
     uvicorn.run(app, host="0.0.0.0", port=port)
