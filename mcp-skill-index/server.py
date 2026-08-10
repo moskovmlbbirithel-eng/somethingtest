@@ -12,17 +12,9 @@ this MCP to:
   2. Identify skill gaps vs. RFP requirements
   3. Recommend retraining paths or flag hiring needs
 
-Transport: SSE (Server-Sent Events)
-Host:      Render (https://bidsense-skill-index.onrender.com)
-
-Tools exposed:
-  - find_smes_for_opportunity
-  - check_skill_gaps
-  - get_retraining_suggestions
-  - recommend_hiring
-  - get_employee_profile
-  - list_all_employees
-  - get_org_skill_inventory
+Transport modes:
+  - streamable-http (default): POST http://host:port/mcp
+  - sse: GET http://host:port/sse -> POST /messages/?session_id=...
 ============================================================
 """
 
@@ -130,7 +122,6 @@ def _score_employee(employee: dict, required_skills: list[str], domain: str) -> 
 
     for skill in required_skills:
         skill_l = skill.lower()
-        # Check direct match in skills or certs
         found = any(skill_l in s for s in emp_skills_lower) or \
                 any(skill_l in c for c in emp_certs_lower)
         if found:
@@ -158,7 +149,7 @@ def _score_employee(employee: dict, required_skills: list[str], domain: str) -> 
 
 
 def _build_org_skill_inventory(employees: list[dict]) -> dict[str, list[str]]:
-    """Build org-wide skill → [employee_ids] mapping."""
+    """Build org-wide skill -> [employee_ids] mapping."""
     inventory: dict[str, list[str]] = {}
     for emp in employees:
         for skill in emp.get("skills", []):
@@ -180,19 +171,6 @@ def find_smes_for_opportunity(
     """
     Find the best-matched Subject Matter Experts (SMEs) in the organisation
     for a given RFP or opportunity.
-
-    Args:
-        skills_required: List of skills/technologies the RFP requires
-                         (e.g. ["Salesforce Health Cloud", "HIPAA", "Data Cloud"]).
-        domain:          Industry domain of the opportunity (e.g. "Healthcare",
-                         "Financial Services", "Logistics"). Optional but improves scoring.
-        top_n:           Number of top matches to return (default 5).
-
-    Returns:
-        A dict with:
-          - top_matches: ranked list of employees with fit scores
-          - total_employees_evaluated: int
-          - skills_evaluated: normalised list of skills used for scoring
     """
     skills_required = _coerce_to_list(skills_required)
     employees = _get_employees()
@@ -235,20 +213,6 @@ def find_smes_for_opportunity(
 def check_skill_gaps(skills_required: list[str]) -> dict:
     """
     Compare RFP-required skills against the organisation's entire skill inventory.
-    Identifies skills that are:
-      - Completely absent from the org
-      - Thinly covered (only 1 person — single point of failure)
-      - Well covered (2+ people)
-
-    Args:
-        skills_required: List of skills/technologies required by the RFP.
-
-    Returns:
-        A dict with:
-          - completely_missing: skills no one in the org has
-          - thin_coverage: skills only 1 person has (risky)
-          - well_covered: skills 2+ people have
-          - coverage_detail: per-skill breakdown with employee names
     """
     skills_required = _coerce_to_list(skills_required)
     employees = _get_employees()
@@ -257,7 +221,6 @@ def check_skill_gaps(skills_required: list[str]) -> dict:
     normalized_skills = _normalize_skills(skills_required, taxonomy)
     inventory = _build_org_skill_inventory(employees)
 
-    # Build employee lookup
     emp_map = {e["id"]: e["name"] for e in employees}
 
     completely_missing = []
@@ -268,7 +231,6 @@ def check_skill_gaps(skills_required: list[str]) -> dict:
     for skill in normalized_skills:
         skill_l = skill.lower()
 
-        # Search inventory with partial matching
         matched_emp_ids = set()
         for inv_skill, emp_ids in inventory.items():
             if skill_l in inv_skill or inv_skill in skill_l:
@@ -310,17 +272,6 @@ def get_retraining_suggestions(skill_gaps: list[str]) -> dict:
     """
     For each skill gap, return a retraining path with courses, certifications,
     estimated timeline, difficulty, and feasibility.
-
-    Args:
-        skill_gaps: List of skill names that are missing or thinly covered.
-
-    Returns:
-        A dict with:
-          - retraining_paths: detailed plan per skill gap
-          - quick_wins: skills that can be trained in ≤4 weeks
-          - medium_term: skills that take 5–12 weeks
-          - long_term: skills that take >12 weeks
-          - hire_recommended_skills: skills flagged as "better to hire"
     """
     skill_gaps = _coerce_to_list(skill_gaps)
     taxonomy = _get_taxonomy()
@@ -337,7 +288,6 @@ def get_retraining_suggestions(skill_gaps: list[str]) -> dict:
         tax_entry = taxonomy.get(normalized)
 
         if not tax_entry:
-            # Skill not in taxonomy — flag for manual review
             retraining_paths[gap] = {
                 "status": "Unknown skill — not in taxonomy",
                 "recommendation": "Manual research required. Consider hiring.",
@@ -349,7 +299,6 @@ def get_retraining_suggestions(skill_gaps: list[str]) -> dict:
         retrain = tax_entry.get("retraining", {})
         is_hire = tax_entry.get("hire_recommended", False)
 
-        # Find matching courses in catalog
         matching_courses = [
             {
                 "course_name": course["name"],
@@ -412,14 +361,7 @@ def get_retraining_suggestions(skill_gaps: list[str]) -> dict:
 def recommend_hiring(skill_gaps: list[str]) -> dict:
     """
     For skill gaps where retraining is not feasible or takes too long,
-    generate a hiring recommendation with role title, JD keywords,
-    typical sourcing timeline, and suggested platforms.
-
-    Args:
-        skill_gaps: List of skill names to evaluate for hiring.
-
-    Returns:
-        A dict with hiring recommendations per skill gap.
+    generate a hiring recommendation.
     """
     skill_gaps = _coerce_to_list(skill_gaps)
     taxonomy = _get_taxonomy()
@@ -515,15 +457,7 @@ def recommend_hiring(skill_gaps: list[str]) -> dict:
 
 @mcp.tool()
 def get_employee_profile(employee_id: str) -> dict:
-    """
-    Retrieve the full profile of a specific employee by their ID.
-
-    Args:
-        employee_id: The employee's unique ID (e.g. "EMP001").
-
-    Returns:
-        Full employee profile dict, or an error message if not found.
-    """
+    """Retrieve the full profile of a specific employee by their ID."""
     employees = _get_employees()
     for emp in employees:
         if emp["id"].upper() == employee_id.upper():
@@ -543,19 +477,7 @@ def list_all_employees(
     seniority: Optional[str] = None,
     min_availability_percent: int = 0,
 ) -> dict:
-    """
-    List all employees in the organisation with optional filters.
-
-    Args:
-        department:               Filter by department name (e.g. "Salesforce Practice",
-                                  "AI & Data Engineering", "Cloud & Infrastructure",
-                                  "Project Delivery", "Domain & Industry"). Optional.
-        seniority:                Filter by seniority level ("Mid", "Senior", "Principal"). Optional.
-        min_availability_percent: Only return employees with at least this % availability (default 0).
-
-    Returns:
-        List of employee summaries.
-    """
+    """List all employees in the organisation with optional filters."""
     employees = _get_employees()
     filtered = []
 
@@ -594,13 +516,7 @@ def list_all_employees(
 
 @mcp.tool()
 def get_org_skill_inventory() -> dict:
-    """
-    Return the organisation's complete skill inventory — every unique skill
-    and how many employees hold it. Useful for a high-level capability overview.
-
-    Returns:
-        A dict with all skills, employee counts, and coverage bands.
-    """
+    """Return the organisation's complete skill inventory."""
     employees = _get_employees()
     inventory = _build_org_skill_inventory(employees)
     emp_map = {e["id"]: e["name"] for e in employees}
@@ -619,7 +535,6 @@ def get_org_skill_inventory() -> dict:
             ),
         })
 
-    # Sort by count descending
     result.sort(key=lambda x: x["employee_count"], reverse=True)
 
     return {
@@ -633,7 +548,7 @@ def get_org_skill_inventory() -> dict:
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
-    transport = os.environ.get("TRANSPORT", "streamable-http")  # "sse" for Render/Agentforce
+    transport = os.environ.get("TRANSPORT", "streamable-http")
     print(f"[BidSense Skill Index] Starting on port {port} with transport={transport}")
     print(f"  Postman / REST: POST http://localhost:{port}/mcp")
     print(f"  MCP Inspector : http://localhost:6274")
