@@ -7,6 +7,6 @@ services:
     startCommand: python server.py
     envVars:
       - key: TRANSPORT
-        value: sse
+        value: streamable-http
     plan: free
     region: singapore
