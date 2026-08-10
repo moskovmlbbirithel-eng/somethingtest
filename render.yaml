@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: bidsense-skill-index
+    runtime: python
+    rootDir: mcp-skill-index
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py
+    envVars:
+      - key: TRANSPORT
+        value: streamable-http
+    plan: free
+    region: singapore

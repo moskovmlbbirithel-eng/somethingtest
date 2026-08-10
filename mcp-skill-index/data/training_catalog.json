@@ -1,0 +1,224 @@
+{
+  "catalog": [
+    {
+      "id": "TC001",
+      "name": "Salesforce Health Cloud Accredited Professional",
+      "provider": "Salesforce Trailhead",
+      "type": "Certification",
+      "url": "https://trailhead.salesforce.com/credentials/healthcloudaccreditedprofessional",
+      "duration_weeks": 8,
+      "cost_band": "Low",
+      "skills_covered": ["Salesforce Health Cloud", "Patient Engagement", "Clinical Data Workflows"],
+      "prerequisites": ["Salesforce Admin certification"]
+    },
+    {
+      "id": "TC002",
+      "name": "Salesforce Data Cloud Consultant",
+      "provider": "Salesforce Trailhead",
+      "type": "Certification",
+      "url": "https://trailhead.salesforce.com/credentials/datacloudconsultant",
+      "duration_weeks": 6,
+      "cost_band": "Low",
+      "skills_covered": ["Salesforce Data Cloud", "CDP", "Data Modeling", "Segmentation"],
+      "prerequisites": ["Salesforce Admin certification"]
+    },
+    {
+      "id": "TC003",
+      "name": "Salesforce AI Specialist",
+      "provider": "Salesforce Trailhead",
+      "type": "Certification",
+      "url": "https://trailhead.salesforce.com/credentials/aispecialist",
+      "duration_weeks": 6,
+      "cost_band": "Low",
+      "skills_covered": ["Agentforce", "Salesforce Einstein", "Prompt Engineering"],
+      "prerequisites": ["Salesforce Admin or Platform Developer I"]
+    },
+    {
+      "id": "TC004",
+      "name": "Salesforce Field Service Consultant",
+      "provider": "Salesforce Trailhead",
+      "type": "Certification",
+      "url": "https://trailhead.salesforce.com/credentials/fieldserviceconsultant",
+      "duration_weeks": 5,
+      "cost_band": "Low",
+      "skills_covered": ["Salesforce FSL", "Scheduling Optimization", "Mobile FSL"],
+      "prerequisites": ["Salesforce Service Cloud Consultant"]
+    },
+    {
+      "id": "TC005",
+      "name": "MuleSoft Certified Developer Level 1",
+      "provider": "MuleSoft Training",
+      "type": "Certification",
+      "url": "https://training.mulesoft.com/certification/developer-mule4-level1",
+      "duration_weeks": 10,
+      "cost_band": "Medium",
+      "skills_covered": ["MuleSoft", "REST API Integration", "Anypoint Platform"],
+      "prerequisites": ["REST API knowledge", "Basic Java"]
+    },
+    {
+      "id": "TC006",
+      "name": "AWS Solutions Architect Associate",
+      "provider": "Amazon Web Services",
+      "type": "Certification",
+      "url": "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
+      "duration_weeks": 8,
+      "cost_band": "Medium",
+      "skills_covered": ["AWS", "Cloud Architecture", "EC2", "S3", "VPC", "IAM"],
+      "prerequisites": ["Cloud fundamentals", "Networking basics"]
+    },
+    {
+      "id": "TC007",
+      "name": "Microsoft Azure Solutions Architect (AZ-305)",
+      "provider": "Microsoft Learn",
+      "type": "Certification",
+      "url": "https://learn.microsoft.com/certifications/azure-solutions-architect/",
+      "duration_weeks": 8,
+      "cost_band": "Medium",
+      "skills_covered": ["Azure", "Azure Architecture", "Identity", "Networking", "Storage"],
+      "prerequisites": ["AZ-104 Microsoft Azure Administrator"]
+    },
+    {
+      "id": "TC008",
+      "name": "Google Cloud Professional Cloud Architect",
+      "provider": "Google Cloud Skills Boost",
+      "type": "Certification",
+      "url": "https://cloud.google.com/learn/certification/cloud-architect",
+      "duration_weeks": 8,
+      "cost_band": "Medium",
+      "skills_covered": ["GCP", "Cloud Architecture", "Kubernetes", "BigQuery"],
+      "prerequisites": ["Cloud fundamentals"]
+    },
+    {
+      "id": "TC009",
+      "name": "HashiCorp Terraform Associate",
+      "provider": "HashiCorp Learn",
+      "type": "Certification",
+      "url": "https://developer.hashicorp.com/certifications/infrastructure-automation",
+      "duration_weeks": 4,
+      "cost_band": "Low",
+      "skills_covered": ["Terraform", "Infrastructure as Code"],
+      "prerequisites": ["Any cloud provider basics", "CLI experience"]
+    },
+    {
+      "id": "TC010",
+      "name": "Certified Kubernetes Administrator (CKA)",
+      "provider": "Cloud Native Computing Foundation",
+      "type": "Certification",
+      "url": "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/",
+      "duration_weeks": 10,
+      "cost_band": "Medium",
+      "skills_covered": ["Kubernetes", "Container Orchestration", "K8s Administration"],
+      "prerequisites": ["Docker", "Linux", "Networking"]
+    },
+    {
+      "id": "TC011",
+      "name": "Machine Learning Specialization (Andrew Ng)",
+      "provider": "Coursera / DeepLearning.AI",
+      "type": "Course",
+      "url": "https://www.coursera.org/specializations/machine-learning-introduction",
+      "duration_weeks": 16,
+      "cost_band": "Low",
+      "skills_covered": ["Machine Learning", "Supervised Learning", "Neural Networks"],
+      "prerequisites": ["Python", "Basic Statistics", "Linear Algebra"]
+    },
+    {
+      "id": "TC012",
+      "name": "LLM Fine-Tuning with LoRA/QLoRA",
+      "provider": "Hugging Face + DeepLearning.AI",
+      "type": "Course",
+      "url": "https://huggingface.co/learn/llm-course",
+      "duration_weeks": 12,
+      "cost_band": "Low",
+      "skills_covered": ["LLM Fine-Tuning", "Hugging Face", "LoRA", "RLHF"],
+      "prerequisites": ["Python", "PyTorch", "Machine Learning basics"]
+    },
+    {
+      "id": "TC013",
+      "name": "Building RAG Systems with LangChain",
+      "provider": "DeepLearning.AI",
+      "type": "Course",
+      "url": "https://www.deeplearning.ai/short-courses/building-and-evaluating-advanced-rag/",
+      "duration_weeks": 6,
+      "cost_band": "Low",
+      "skills_covered": ["RAG", "LangChain", "Vector Databases", "Embeddings"],
+      "prerequisites": ["Python", "LLM basics"]
+    },
+    {
+      "id": "TC014",
+      "name": "HIPAA Compliance Training",
+      "provider": "HHS + ProTrainings",
+      "type": "Course",
+      "url": "https://www.hhs.gov/hipaa/for-professionals/training/index.html",
+      "duration_weeks": 6,
+      "cost_band": "Low",
+      "skills_covered": ["HIPAA Compliance", "PHI Data Handling", "Healthcare Compliance"],
+      "prerequisites": ["Healthcare domain basics"]
+    },
+    {
+      "id": "TC015",
+      "name": "HL7 FHIR Fundamentals",
+      "provider": "HL7 International",
+      "type": "Certification",
+      "url": "https://www.hl7.org/training/",
+      "duration_weeks": 8,
+      "cost_band": "Medium",
+      "skills_covered": ["HL7 FHIR", "Healthcare Interoperability", "FHIR R4"],
+      "prerequisites": ["REST API basics", "Healthcare domain basics"]
+    },
+    {
+      "id": "TC016",
+      "name": "APICS CSCP – Certified Supply Chain Professional",
+      "provider": "APICS / ASCM",
+      "type": "Certification",
+      "url": "https://www.ascm.org/credentials/cscp/",
+      "duration_weeks": 14,
+      "cost_band": "High",
+      "skills_covered": ["Supply Chain Management", "Logistics Operations", "Inventory Management"],
+      "prerequisites": ["3+ years supply chain experience"]
+    },
+    {
+      "id": "TC017",
+      "name": "Prosci Change Management Practitioner",
+      "provider": "Prosci",
+      "type": "Certification",
+      "url": "https://www.prosci.com/certification/change-management-practitioner-program",
+      "duration_weeks": 4,
+      "cost_band": "High",
+      "skills_covered": ["Change Management", "Stakeholder Management", "ADKAR Model"],
+      "prerequisites": ["Project delivery experience"]
+    },
+    {
+      "id": "TC018",
+      "name": "Python for Everybody Specialization",
+      "provider": "Coursera (University of Michigan)",
+      "type": "Course",
+      "url": "https://www.coursera.org/specializations/python",
+      "duration_weeks": 6,
+      "cost_band": "Low",
+      "skills_covered": ["Python", "Data Structures", "APIs with Python"],
+      "prerequisites": []
+    },
+    {
+      "id": "TC019",
+      "name": "Salesforce Financial Services Cloud Accredited Professional",
+      "provider": "Salesforce Trailhead",
+      "type": "Certification",
+      "url": "https://trailhead.salesforce.com/credentials/financialservicescloudaccreditedprofessional",
+      "duration_weeks": 7,
+      "cost_band": "Low",
+      "skills_covered": ["Salesforce Financial Services Cloud", "Wealth Management", "Banking"],
+      "prerequisites": ["Salesforce Admin certification"]
+    },
+    {
+      "id": "TC020",
+      "name": "CAMS – Certified Anti-Money Laundering Specialist",
+      "provider": "ACAMS",
+      "type": "Certification",
+      "url": "https://www.acams.org/certifications/cams",
+      "duration_weeks": 10,
+      "cost_band": "High",
+      "skills_covered": ["KYC/AML", "Financial Crime Compliance", "Banking Regulations"],
+      "prerequisites": ["Banking domain experience"]
+    }
+  ]
+}

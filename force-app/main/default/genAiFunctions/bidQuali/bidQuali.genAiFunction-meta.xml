@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiFunction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Evaluates Opportunity data, stage history, capability fit, and commercial margins for BidSense AI qualification.</description>
+    <developerName>bidQuali</developerName>
+    <invocationTarget>BidSenseAgentInvocableAction</invocationTarget>
+    <invocationTargetType>apex</invocationTargetType>
+    <isConfirmationRequired>false</isConfirmationRequired>
+    <masterLabel>Analyze Opportunity for Bid Qualification</masterLabel>
+</GenAiFunction>

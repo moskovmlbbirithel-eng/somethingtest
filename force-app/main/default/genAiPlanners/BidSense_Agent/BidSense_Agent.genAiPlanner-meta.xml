@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlanner xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>AI Agent for Salesforce Opportunity Bid/No-Bid Qualification</description>
+    <developerName>BidSense_Agent</developerName>
+    <genAiPlugins>
+        <pluginName>Opportunity_Qualification</pluginName>
+    </genAiPlugins>
+    <masterLabel>BidSense Agent</masterLabel>
+    <plannerType>AiAgent</plannerType>
+</GenAiPlanner>

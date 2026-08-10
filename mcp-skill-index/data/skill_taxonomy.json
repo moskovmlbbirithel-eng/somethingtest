@@ -1,0 +1,346 @@
+{
+  "skills": {
+    "Salesforce Health Cloud": {
+      "aliases": ["Health Cloud", "SF Health Cloud", "Salesforce HC", "SFHC"],
+      "category": "Salesforce Platform",
+      "proficiency_levels": ["Associate", "Consultant", "Architect"],
+      "retraining": {
+        "feasible": true,
+        "path": "Trailhead Health Cloud Trail + Salesforce Health Cloud Accredited Professional Exam",
+        "estimated_weeks": 8,
+        "difficulty": "Medium",
+        "prerequisite_skills": ["Salesforce Admin", "Salesforce Service Cloud"]
+      },
+      "hire_recommended": false
+    },
+    "Salesforce Data Cloud": {
+      "aliases": ["Data Cloud", "SF Data Cloud", "Salesforce CDP", "Customer Data Platform"],
+      "category": "Salesforce Platform",
+      "proficiency_levels": ["Associate", "Consultant", "Architect"],
+      "retraining": {
+        "feasible": true,
+        "path": "Trailhead Data Cloud Trail + Salesforce Data Cloud Consultant Exam",
+        "estimated_weeks": 6,
+        "difficulty": "Medium",
+        "prerequisite_skills": ["Salesforce Admin", "Data Modeling"]
+      },
+      "hire_recommended": false
+    },
+    "Agentforce": {
+      "aliases": ["Salesforce Agentforce", "Einstein Copilot", "Salesforce AI Agents", "SFAI"],
+      "category": "Salesforce AI",
+      "proficiency_levels": ["Associate", "Specialist", "Architect"],
+      "retraining": {
+        "feasible": true,
+        "path": "Trailhead Agentforce Trail + Salesforce AI Specialist Certification",
+        "estimated_weeks": 6,
+        "difficulty": "Medium",
+        "prerequisite_skills": ["Prompt Engineering", "Salesforce Platform"]
+      },
+      "hire_recommended": false
+    },
+    "Salesforce FSL": {
+      "aliases": ["Field Service Lightning", "FSL", "Salesforce Field Service", "SFS"],
+      "category": "Salesforce Platform",
+      "proficiency_levels": ["Consultant", "Developer", "Architect"],
+      "retraining": {
+        "feasible": true,
+        "path": "Trailhead FSL Trail + Salesforce Field Service Consultant Exam",
+        "estimated_weeks": 5,
+        "difficulty": "Medium",
+        "prerequisite_skills": ["Salesforce Service Cloud", "Apex"]
+      },
+      "hire_recommended": false
+    },
+    "Salesforce Financial Services Cloud": {
+      "aliases": ["FSC", "Salesforce FSC", "Financial Services Cloud"],
+      "category": "Salesforce Platform",
+      "proficiency_levels": ["Associate", "Consultant", "Architect"],
+      "retraining": {
+        "feasible": true,
+        "path": "Trailhead FSC Trail + Salesforce Financial Services Cloud Accredited Professional",
+        "estimated_weeks": 7,
+        "difficulty": "Medium",
+        "prerequisite_skills": ["Salesforce Admin", "Banking domain basics"]
+      },
+      "hire_recommended": false
+    },
+    "MuleSoft": {
+      "aliases": ["MuleSoft Anypoint", "Anypoint Platform", "Mule", "MuleSoft Integration"],
+      "category": "Integration",
+      "proficiency_levels": ["Developer Level 1", "Developer Level 2", "Architect"],
+      "retraining": {
+        "feasible": true,
+        "path": "MuleSoft Training + MuleSoft Certified Developer Level 1 Exam",
+        "estimated_weeks": 10,
+        "difficulty": "Hard",
+        "prerequisite_skills": ["REST API Integration", "Java/XML basics"]
+      },
+      "hire_recommended": false
+    },
+    "AWS": {
+      "aliases": ["Amazon Web Services", "Amazon Cloud", "AWS Cloud"],
+      "category": "Cloud",
+      "proficiency_levels": ["Cloud Practitioner", "Solutions Architect Associate", "Solutions Architect Professional"],
+      "retraining": {
+        "feasible": true,
+        "path": "AWS Skill Builder + AWS Solutions Architect Associate Exam",
+        "estimated_weeks": 8,
+        "difficulty": "Medium",
+        "prerequisite_skills": ["Networking basics", "Linux"]
+      },
+      "hire_recommended": false
+    },
+    "Azure": {
+      "aliases": ["Microsoft Azure", "Azure Cloud", "MS Azure"],
+      "category": "Cloud",
+      "proficiency_levels": ["Fundamentals", "Associate", "Expert"],
+      "retraining": {
+        "feasible": true,
+        "path": "Microsoft Learn + AZ-900 then AZ-104 + AZ-305",
+        "estimated_weeks": 8,
+        "difficulty": "Medium",
+        "prerequisite_skills": ["Networking basics", "Active Directory"]
+      },
+      "hire_recommended": false
+    },
+    "GCP": {
+      "aliases": ["Google Cloud", "Google Cloud Platform", "GCP Cloud"],
+      "category": "Cloud",
+      "proficiency_levels": ["Associate Cloud Engineer", "Professional Cloud Architect", "Data Engineer"],
+      "retraining": {
+        "feasible": true,
+        "path": "Google Cloud Skills Boost + Professional Cloud Architect Exam",
+        "estimated_weeks": 8,
+        "difficulty": "Medium",
+        "prerequisite_skills": ["Cloud fundamentals", "Linux"]
+      },
+      "hire_recommended": false
+    },
+    "Terraform": {
+      "aliases": ["Terraform IaC", "HashiCorp Terraform", "Infrastructure as Code"],
+      "category": "Cloud",
+      "proficiency_levels": ["Associate", "Professional"],
+      "retraining": {
+        "feasible": true,
+        "path": "HashiCorp Learn + Terraform Associate Exam",
+        "estimated_weeks": 4,
+        "difficulty": "Easy",
+        "prerequisite_skills": ["CLI basics", "Any cloud provider"]
+      },
+      "hire_recommended": false
+    },
+    "Kubernetes": {
+      "aliases": ["K8s", "Container Orchestration", "K8"],
+      "category": "Cloud",
+      "proficiency_levels": ["Developer", "Administrator", "Security Specialist"],
+      "retraining": {
+        "feasible": true,
+        "path": "Kubernetes fundamentals + CKA (Certified Kubernetes Administrator)",
+        "estimated_weeks": 10,
+        "difficulty": "Hard",
+        "prerequisite_skills": ["Docker", "Linux", "Networking"]
+      },
+      "hire_recommended": false
+    },
+    "Python": {
+      "aliases": ["Python3", "Python Programming", "Python scripting"],
+      "category": "Programming",
+      "proficiency_levels": ["Beginner", "Intermediate", "Expert"],
+      "retraining": {
+        "feasible": true,
+        "path": "Python.org tutorials + Coursera Python for Everybody",
+        "estimated_weeks": 6,
+        "difficulty": "Easy",
+        "prerequisite_skills": []
+      },
+      "hire_recommended": false
+    },
+    "Machine Learning": {
+      "aliases": ["ML", "Supervised Learning", "Deep Learning", "AI/ML"],
+      "category": "AI/ML",
+      "proficiency_levels": ["Practitioner", "Specialist", "Research Scientist"],
+      "retraining": {
+        "feasible": true,
+        "path": "Andrew Ng's ML Specialization (Coursera) + Hands-on projects",
+        "estimated_weeks": 16,
+        "difficulty": "Hard",
+        "prerequisite_skills": ["Python", "Statistics", "Linear Algebra"]
+      },
+      "hire_recommended": false
+    },
+    "LLM Fine-Tuning": {
+      "aliases": ["Fine-Tuning LLMs", "RLHF", "LoRA", "Model Tuning", "LLM training"],
+      "category": "AI/ML",
+      "proficiency_levels": ["Practitioner", "Specialist"],
+      "retraining": {
+        "feasible": true,
+        "path": "Hugging Face Fine-Tuning Course + hands-on with LoRA/QLoRA",
+        "estimated_weeks": 12,
+        "difficulty": "Hard",
+        "prerequisite_skills": ["Python", "Machine Learning", "PyTorch/TensorFlow"]
+      },
+      "hire_recommended": false
+    },
+    "RAG": {
+      "aliases": ["Retrieval Augmented Generation", "RAG Pipeline", "Vector Search + LLM"],
+      "category": "AI/ML",
+      "proficiency_levels": ["Developer", "Specialist"],
+      "retraining": {
+        "feasible": true,
+        "path": "LangChain docs + DeepLearning.AI RAG course + hands-on project",
+        "estimated_weeks": 6,
+        "difficulty": "Medium",
+        "prerequisite_skills": ["Python", "LangChain", "Vector Databases"]
+      },
+      "hire_recommended": false
+    },
+    "Vector Databases": {
+      "aliases": ["Pinecone", "Weaviate", "ChromaDB", "pgvector", "Vector Store", "Embeddings DB"],
+      "category": "AI/ML",
+      "proficiency_levels": ["User", "Integrator"],
+      "retraining": {
+        "feasible": true,
+        "path": "Pinecone/Weaviate docs + integration project",
+        "estimated_weeks": 3,
+        "difficulty": "Easy",
+        "prerequisite_skills": ["Python", "SQL basics"]
+      },
+      "hire_recommended": false
+    },
+    "HIPAA Compliance": {
+      "aliases": ["HIPAA", "Healthcare Compliance", "PHI Data", "HIPAA Rules"],
+      "category": "Healthcare Domain",
+      "proficiency_levels": ["Aware", "Practitioner", "Expert"],
+      "retraining": {
+        "feasible": true,
+        "path": "HHS HIPAA training + CHPS certification path",
+        "estimated_weeks": 6,
+        "difficulty": "Medium",
+        "prerequisite_skills": ["Healthcare domain basics"]
+      },
+      "hire_recommended": false
+    },
+    "HL7 FHIR": {
+      "aliases": ["FHIR", "HL7", "FHIR R4", "Healthcare Interoperability"],
+      "category": "Healthcare Domain",
+      "proficiency_levels": ["Beginner", "Practitioner", "Expert"],
+      "retraining": {
+        "feasible": true,
+        "path": "HL7 FHIR Fundamentals course + Firely/HAPI FHIR hands-on",
+        "estimated_weeks": 8,
+        "difficulty": "Medium",
+        "prerequisite_skills": ["Healthcare domain basics", "REST API basics"]
+      },
+      "hire_recommended": false
+    },
+    "Epic EHR Integration": {
+      "aliases": ["Epic Systems", "Epic EMR", "Epic MyChart", "Epic Integration"],
+      "category": "Healthcare Domain",
+      "proficiency_levels": ["Analyst", "Developer", "Architect"],
+      "retraining": {
+        "feasible": false,
+        "path": "Epic Systems requires vendor-led certification — not publicly available",
+        "estimated_weeks": 24,
+        "difficulty": "Very Hard",
+        "prerequisite_skills": ["HL7 FHIR", "Healthcare IT", "Epic system access"]
+      },
+      "hire_recommended": true,
+      "hiring_note": "Epic certification requires working at an Epic customer site or being an Epic partner. Strongly recommend hiring someone with prior Epic experience."
+    },
+    "SAP": {
+      "aliases": ["SAP ERP", "SAP S/4HANA", "SAP MM", "SAP SD"],
+      "category": "ERP",
+      "proficiency_levels": ["End User", "Consultant", "Architect"],
+      "retraining": {
+        "feasible": true,
+        "path": "SAP Learning Hub + SAP certification exam",
+        "estimated_weeks": 14,
+        "difficulty": "Hard",
+        "prerequisite_skills": ["ERP concepts", "Business process knowledge"]
+      },
+      "hire_recommended": true,
+      "hiring_note": "SAP expertise is highly specialized. Unless the team has ERP background, hiring an experienced SAP consultant is more cost-effective than retraining."
+    },
+    "CISSP": {
+      "aliases": ["Cybersecurity", "Information Security", "Infosec"],
+      "category": "Security",
+      "proficiency_levels": ["Security Analyst", "Security Engineer", "CISO"],
+      "retraining": {
+        "feasible": true,
+        "path": "ISC2 Official Study Guide + CISSP exam (requires 5 years experience)",
+        "estimated_weeks": 20,
+        "difficulty": "Very Hard",
+        "prerequisite_skills": ["Networking", "Operating Systems", "Security fundamentals"]
+      },
+      "hire_recommended": true,
+      "hiring_note": "CISSP requires minimum 5 years of security experience. Cannot be fast-tracked. Recommend hiring a certified security professional for compliance-heavy projects."
+    },
+    "Blockchain": {
+      "aliases": ["Web3", "Smart Contracts", "Solidity", "Ethereum", "Hyperledger"],
+      "category": "Emerging Technology",
+      "proficiency_levels": ["Developer", "Architect"],
+      "retraining": {
+        "feasible": false,
+        "path": "Blockchain development requires in-depth Web3 ecosystem knowledge",
+        "estimated_weeks": 26,
+        "difficulty": "Very Hard",
+        "prerequisite_skills": ["Solidity", "Cryptography basics", "Distributed systems"]
+      },
+      "hire_recommended": true,
+      "hiring_note": "Blockchain/Web3 expertise is highly niche. We currently have no foundational skills in this area. Hiring is the only viable path for project timelines."
+    },
+    "Apex": {
+      "aliases": ["Salesforce Apex", "Apex Classes", "Apex Triggers"],
+      "category": "Salesforce Platform",
+      "proficiency_levels": ["Developer I", "Developer II", "Architect"],
+      "retraining": {
+        "feasible": true,
+        "path": "Trailhead Apex Basics + Platform Developer I Certification",
+        "estimated_weeks": 4,
+        "difficulty": "Easy",
+        "prerequisite_skills": ["Java or similar OOP language"]
+      },
+      "hire_recommended": false
+    },
+    "LWC": {
+      "aliases": ["Lightning Web Components", "Lightning Components", "Salesforce LWC"],
+      "category": "Salesforce Platform",
+      "proficiency_levels": ["Developer", "Specialist"],
+      "retraining": {
+        "feasible": true,
+        "path": "Trailhead LWC Trail + hands-on component development",
+        "estimated_weeks": 4,
+        "difficulty": "Easy",
+        "prerequisite_skills": ["JavaScript", "HTML/CSS"]
+      },
+      "hire_recommended": false
+    },
+    "Change Management": {
+      "aliases": ["Organizational Change", "OCM", "Change Enablement", "Prosci"],
+      "category": "Delivery",
+      "proficiency_levels": ["Practitioner", "Manager", "Expert"],
+      "retraining": {
+        "feasible": true,
+        "path": "Prosci Change Management certification + practice",
+        "estimated_weeks": 4,
+        "difficulty": "Easy",
+        "prerequisite_skills": ["Stakeholder management", "Communication skills"]
+      },
+      "hire_recommended": false
+    },
+    "KYC/AML": {
+      "aliases": ["Know Your Customer", "Anti-Money Laundering", "Financial Crime Compliance", "CAMS"],
+      "category": "Financial Services Domain",
+      "proficiency_levels": ["Analyst", "Specialist", "Expert"],
+      "retraining": {
+        "feasible": true,
+        "path": "ACAMS CAMS Certification + regulatory training",
+        "estimated_weeks": 10,
+        "difficulty": "Hard",
+        "prerequisite_skills": ["Banking domain basics", "Compliance awareness"]
+      },
+      "hire_recommended": false
+    }
+  }
+}

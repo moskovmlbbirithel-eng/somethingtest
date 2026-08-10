@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPlugin xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Evaluates Opportunity data, stage history, capability fit, and commercial margins for Bid/No-Bid qualification.</description>
+    <developerName>Opportunity_Qualification</developerName>
+    <genAiFunctions>
+        <functionName>bidQuali</functionName>
+    </genAiFunctions>
+    <language>en_US</language>
+    <masterLabel>Opportunity Qualification</masterLabel>
+    <pluginType>Topic</pluginType>
+</GenAiPlugin>

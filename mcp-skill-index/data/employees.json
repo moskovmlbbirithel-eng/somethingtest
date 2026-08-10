@@ -1,0 +1,601 @@
+[
+  {
+    "id": "EMP001",
+    "name": "Ramya Subramaniam",
+    "role": "Senior Salesforce Architect",
+    "seniority": "Senior",
+    "department": "Salesforce Practice",
+    "skills": [
+      "Salesforce Health Cloud",
+      "Salesforce Data Cloud",
+      "Apex",
+      "LWC",
+      "Salesforce Integration",
+      "MuleSoft",
+      "SOQL",
+      "Salesforce CPQ"
+    ],
+    "certifications": [
+      "Salesforce Certified Technical Architect",
+      "Salesforce Certified Application Architect",
+      "Salesforce Health Cloud Accredited Professional"
+    ],
+    "domain_experience": ["Healthcare", "Life Sciences", "Insurance"],
+    "years_of_experience": 10,
+    "projects_delivered": 14,
+    "availability_percent": 60,
+    "location": "Bangalore",
+    "billable_rate_band": "Senior",
+    "languages": ["English", "Tamil", "Hindi"]
+  },
+  {
+    "id": "EMP002",
+    "name": "Arjun Mehta",
+    "role": "Salesforce Developer",
+    "seniority": "Mid",
+    "department": "Salesforce Practice",
+    "skills": [
+      "Apex",
+      "LWC",
+      "Salesforce Flow",
+      "Salesforce FSL",
+      "Salesforce Service Cloud",
+      "SOQL",
+      "Visualforce",
+      "REST API Integration"
+    ],
+    "certifications": [
+      "Salesforce Certified Platform Developer I",
+      "Salesforce Certified Platform Developer II",
+      "Salesforce Field Service Consultant"
+    ],
+    "domain_experience": ["Logistics", "Manufacturing", "Utilities"],
+    "years_of_experience": 6,
+    "projects_delivered": 9,
+    "availability_percent": 100,
+    "location": "Pune",
+    "billable_rate_band": "Mid",
+    "languages": ["English", "Hindi", "Marathi"]
+  },
+  {
+    "id": "EMP003",
+    "name": "Divya Krishnan",
+    "role": "Agentforce & AI Specialist",
+    "seniority": "Senior",
+    "department": "Salesforce Practice",
+    "skills": [
+      "Agentforce",
+      "Salesforce Einstein",
+      "Prompt Engineering",
+      "LWC",
+      "Apex",
+      "Salesforce Data Cloud",
+      "Python",
+      "RAG",
+      "LangChain"
+    ],
+    "certifications": [
+      "Salesforce AI Associate",
+      "Salesforce AI Specialist",
+      "Salesforce Certified Platform Developer I",
+      "Salesforce Data Cloud Consultant"
+    ],
+    "domain_experience": ["Financial Services", "Retail", "E-Commerce"],
+    "years_of_experience": 8,
+    "projects_delivered": 11,
+    "availability_percent": 40,
+    "location": "Chennai",
+    "billable_rate_band": "Senior",
+    "languages": ["English", "Tamil"]
+  },
+  {
+    "id": "EMP004",
+    "name": "Karan Bhatia",
+    "role": "Cloud Solutions Architect",
+    "seniority": "Principal",
+    "department": "Cloud & Infrastructure",
+    "skills": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Terraform",
+      "Kubernetes",
+      "Docker",
+      "CI/CD",
+      "Microservices",
+      "API Gateway",
+      "CloudFormation"
+    ],
+    "certifications": [
+      "AWS Solutions Architect Professional",
+      "Google Cloud Professional Cloud Architect",
+      "Azure Solutions Architect Expert",
+      "Certified Kubernetes Administrator"
+    ],
+    "domain_experience": ["Financial Services", "Healthcare", "E-Commerce"],
+    "years_of_experience": 13,
+    "projects_delivered": 20,
+    "availability_percent": 30,
+    "location": "Hyderabad",
+    "billable_rate_band": "Principal",
+    "languages": ["English", "Hindi", "Punjabi"]
+  },
+  {
+    "id": "EMP005",
+    "name": "Priya Nair",
+    "role": "AI/ML Engineer",
+    "seniority": "Senior",
+    "department": "AI & Data Engineering",
+    "skills": [
+      "Python",
+      "Machine Learning",
+      "LLM Fine-Tuning",
+      "RAG",
+      "Vector Databases",
+      "LangChain",
+      "TensorFlow",
+      "PyTorch",
+      "Hugging Face",
+      "MLOps",
+      "FastAPI"
+    ],
+    "certifications": [
+      "Google Cloud Professional ML Engineer",
+      "AWS Certified Machine Learning Specialty",
+      "Deep Learning Specialization (Coursera)"
+    ],
+    "domain_experience": ["Healthcare", "Financial Services", "Logistics"],
+    "years_of_experience": 7,
+    "projects_delivered": 8,
+    "availability_percent": 80,
+    "location": "Bangalore",
+    "billable_rate_band": "Senior",
+    "languages": ["English", "Malayalam", "Hindi"]
+  },
+  {
+    "id": "EMP006",
+    "name": "Rohan Desai",
+    "role": "Data Engineer",
+    "seniority": "Mid",
+    "department": "AI & Data Engineering",
+    "skills": [
+      "Python",
+      "Apache Spark",
+      "Databricks",
+      "dbt",
+      "Snowflake",
+      "BigQuery",
+      "Kafka",
+      "Airflow",
+      "SQL",
+      "Data Modeling"
+    ],
+    "certifications": [
+      "Databricks Certified Data Engineer Associate",
+      "dbt Analytics Engineering Certification",
+      "Snowflake SnowPro Core"
+    ],
+    "domain_experience": ["Retail", "Financial Services", "Telecom"],
+    "years_of_experience": 5,
+    "projects_delivered": 6,
+    "availability_percent": 100,
+    "location": "Mumbai",
+    "billable_rate_band": "Mid",
+    "languages": ["English", "Hindi", "Marathi"]
+  },
+  {
+    "id": "EMP007",
+    "name": "Sneha Rajput",
+    "role": "Delivery Manager",
+    "seniority": "Principal",
+    "department": "Project Delivery",
+    "skills": [
+      "Agile",
+      "SAFe",
+      "PMO",
+      "Change Management",
+      "Stakeholder Management",
+      "Risk Management",
+      "Budget Management",
+      "PRINCE2"
+    ],
+    "certifications": [
+      "PMP",
+      "SAFe Program Consultant (SPC)",
+      "PRINCE2 Practitioner",
+      "Prosci Change Management"
+    ],
+    "domain_experience": ["Healthcare", "Financial Services", "Government"],
+    "years_of_experience": 15,
+    "projects_delivered": 28,
+    "availability_percent": 50,
+    "location": "Delhi",
+    "billable_rate_band": "Principal",
+    "languages": ["English", "Hindi", "Rajasthani"]
+  },
+  {
+    "id": "EMP008",
+    "name": "Venkat Rao",
+    "role": "Healthcare Domain Expert",
+    "seniority": "Principal",
+    "department": "Domain & Industry",
+    "skills": [
+      "HIPAA Compliance",
+      "HL7 FHIR",
+      "Healthcare IT",
+      "EMR/EHR Systems",
+      "Clinical Data Workflows",
+      "Healthcare Analytics",
+      "Patient Engagement",
+      "Interoperability"
+    ],
+    "certifications": [
+      "CPHIMS (Certified Professional in Health Informatics and Information Management)",
+      "FHIR R4 Practitioner"
+    ],
+    "domain_experience": ["Healthcare", "Pharmaceuticals", "Life Sciences"],
+    "years_of_experience": 18,
+    "projects_delivered": 22,
+    "availability_percent": 70,
+    "location": "Hyderabad",
+    "billable_rate_band": "Principal",
+    "languages": ["English", "Telugu", "Hindi"]
+  },
+  {
+    "id": "EMP009",
+    "name": "Anita Sharma",
+    "role": "Financial Services Domain Expert",
+    "seniority": "Senior",
+    "department": "Domain & Industry",
+    "skills": [
+      "Banking Regulations",
+      "FINRA Compliance",
+      "KYC/AML",
+      "Wealth Management",
+      "Salesforce Financial Services Cloud",
+      "Capital Markets",
+      "Risk & Compliance",
+      "Basel III"
+    ],
+    "certifications": [
+      "Certified Financial Services Auditor",
+      "Salesforce Financial Services Cloud Accredited Professional",
+      "CAMS (Certified Anti-Money Laundering Specialist)"
+    ],
+    "domain_experience": ["Banking", "Insurance", "Asset Management"],
+    "years_of_experience": 12,
+    "projects_delivered": 16,
+    "availability_percent": 40,
+    "location": "Mumbai",
+    "billable_rate_band": "Senior",
+    "languages": ["English", "Hindi", "Bengali"]
+  },
+  {
+    "id": "EMP010",
+    "name": "Suresh Kumar",
+    "role": "Salesforce FSL Specialist",
+    "seniority": "Senior",
+    "department": "Salesforce Practice",
+    "skills": [
+      "Salesforce FSL",
+      "Salesforce Service Cloud",
+      "Apex",
+      "LWC",
+      "Mobile Development",
+      "Scheduling Optimization",
+      "Salesforce IoT",
+      "REST API Integration"
+    ],
+    "certifications": [
+      "Salesforce Field Service Consultant",
+      "Salesforce Certified Service Cloud Consultant",
+      "Salesforce Certified Platform Developer I"
+    ],
+    "domain_experience": ["Utilities", "Logistics", "Manufacturing"],
+    "years_of_experience": 8,
+    "projects_delivered": 10,
+    "availability_percent": 100,
+    "location": "Coimbatore",
+    "billable_rate_band": "Senior",
+    "languages": ["English", "Tamil", "Hindi"]
+  },
+  {
+    "id": "EMP011",
+    "name": "Meera Iyer",
+    "role": "Scrum Master & Agile Coach",
+    "seniority": "Mid",
+    "department": "Project Delivery",
+    "skills": [
+      "Agile",
+      "Scrum",
+      "Kanban",
+      "SAFe",
+      "Jira",
+      "Confluence",
+      "Retrospectives",
+      "Sprint Planning",
+      "Team Coaching"
+    ],
+    "certifications": [
+      "Certified ScrumMaster (CSM)",
+      "SAFe Scrum Master",
+      "Professional Scrum Master II (PSM II)"
+    ],
+    "domain_experience": ["Retail", "E-Commerce", "Telecom"],
+    "years_of_experience": 6,
+    "projects_delivered": 12,
+    "availability_percent": 100,
+    "location": "Bangalore",
+    "billable_rate_band": "Mid",
+    "languages": ["English", "Kannada", "Tamil"]
+  },
+  {
+    "id": "EMP012",
+    "name": "Rahul Patel",
+    "role": "DevSecOps Engineer",
+    "seniority": "Mid",
+    "department": "Cloud & Infrastructure",
+    "skills": [
+      "DevOps",
+      "CI/CD",
+      "GitHub Actions",
+      "Jenkins",
+      "Docker",
+      "Kubernetes",
+      "Terraform",
+      "Security Scanning",
+      "OWASP",
+      "Vault"
+    ],
+    "certifications": [
+      "AWS DevOps Engineer Professional",
+      "Certified Kubernetes Security Specialist",
+      "HashiCorp Terraform Associate"
+    ],
+    "domain_experience": ["Financial Services", "Government", "Healthcare"],
+    "years_of_experience": 5,
+    "projects_delivered": 7,
+    "availability_percent": 80,
+    "location": "Ahmedabad",
+    "billable_rate_band": "Mid",
+    "languages": ["English", "Hindi", "Gujarati"]
+  },
+  {
+    "id": "EMP013",
+    "name": "Lakshmi Venkataraman",
+    "role": "Logistics & Supply Chain Domain Expert",
+    "seniority": "Senior",
+    "department": "Domain & Industry",
+    "skills": [
+      "Supply Chain Management",
+      "Logistics Operations",
+      "Warehouse Management",
+      "Last-Mile Delivery",
+      "Fleet Management",
+      "ERP Systems",
+      "SAP",
+      "Transportation Management"
+    ],
+    "certifications": [
+      "APICS CSCP (Certified Supply Chain Professional)",
+      "Six Sigma Black Belt",
+      "SAP Certified Application Associate – MM"
+    ],
+    "domain_experience": ["Logistics", "Manufacturing", "Retail"],
+    "years_of_experience": 11,
+    "projects_delivered": 13,
+    "availability_percent": 60,
+    "location": "Chennai",
+    "billable_rate_band": "Senior",
+    "languages": ["English", "Tamil", "Telugu"]
+  },
+  {
+    "id": "EMP014",
+    "name": "Aditya Kapoor",
+    "role": "Solutions Architect – Integration",
+    "seniority": "Senior",
+    "department": "Salesforce Practice",
+    "skills": [
+      "MuleSoft",
+      "MuleSoft Anypoint Platform",
+      "REST API Integration",
+      "SOAP Integration",
+      "GraphQL",
+      "API Management",
+      "Salesforce Integration",
+      "Event-Driven Architecture",
+      "Kafka"
+    ],
+    "certifications": [
+      "MuleSoft Certified Developer Level 1",
+      "MuleSoft Certified Integration Architect",
+      "Salesforce Certified Integration Architect"
+    ],
+    "domain_experience": ["Financial Services", "Healthcare", "Manufacturing"],
+    "years_of_experience": 9,
+    "projects_delivered": 11,
+    "availability_percent": 50,
+    "location": "Gurgaon",
+    "billable_rate_band": "Senior",
+    "languages": ["English", "Hindi", "Punjabi"]
+  },
+  {
+    "id": "EMP015",
+    "name": "Nandini Rao",
+    "role": "Business Analyst",
+    "seniority": "Mid",
+    "department": "Project Delivery",
+    "skills": [
+      "Business Analysis",
+      "Requirements Gathering",
+      "User Stories",
+      "Process Mapping",
+      "Stakeholder Management",
+      "Salesforce Admin",
+      "Wireframing",
+      "UAT"
+    ],
+    "certifications": [
+      "CBAP (Certified Business Analysis Professional)",
+      "Salesforce Certified Administrator",
+      "PMI-PBA"
+    ],
+    "domain_experience": ["Healthcare", "Insurance", "Government"],
+    "years_of_experience": 6,
+    "projects_delivered": 8,
+    "availability_percent": 100,
+    "location": "Bangalore",
+    "billable_rate_band": "Mid",
+    "languages": ["English", "Kannada", "Hindi"]
+  },
+  {
+    "id": "EMP016",
+    "name": "Siddharth Joshi",
+    "role": "Salesforce Commerce Cloud Developer",
+    "seniority": "Mid",
+    "department": "Salesforce Practice",
+    "skills": [
+      "Salesforce Commerce Cloud",
+      "SFRA",
+      "B2C Commerce",
+      "JavaScript",
+      "Node.js",
+      "Salesforce Marketing Cloud",
+      "CDPs",
+      "Personalisation"
+    ],
+    "certifications": [
+      "Salesforce B2C Commerce Developer",
+      "Salesforce Marketing Cloud Associate",
+      "Salesforce Marketing Cloud Email Specialist"
+    ],
+    "domain_experience": ["Retail", "E-Commerce", "Consumer Goods"],
+    "years_of_experience": 5,
+    "projects_delivered": 6,
+    "availability_percent": 100,
+    "location": "Pune",
+    "billable_rate_band": "Mid",
+    "languages": ["English", "Hindi", "Marathi"]
+  },
+  {
+    "id": "EMP017",
+    "name": "Pooja Menon",
+    "role": "Cybersecurity & Compliance Consultant",
+    "seniority": "Senior",
+    "department": "Cloud & Infrastructure",
+    "skills": [
+      "Cybersecurity",
+      "ISO 27001",
+      "SOC 2",
+      "GDPR",
+      "HIPAA Compliance",
+      "Penetration Testing",
+      "Threat Modelling",
+      "NIST Framework",
+      "Cloud Security"
+    ],
+    "certifications": [
+      "CISSP",
+      "CISM",
+      "CEH (Certified Ethical Hacker)",
+      "ISO 27001 Lead Auditor"
+    ],
+    "domain_experience": ["Healthcare", "Financial Services", "Government"],
+    "years_of_experience": 10,
+    "projects_delivered": 12,
+    "availability_percent": 70,
+    "location": "Kochi",
+    "billable_rate_band": "Senior",
+    "languages": ["English", "Malayalam", "Hindi"]
+  },
+  {
+    "id": "EMP018",
+    "name": "Amit Agarwal",
+    "role": "Pre-Sales & Bid Manager",
+    "seniority": "Principal",
+    "department": "Project Delivery",
+    "skills": [
+      "Pre-Sales",
+      "RFP Response",
+      "Solution Design",
+      "Proposal Writing",
+      "Commercial Pricing",
+      "Competitive Analysis",
+      "Client Presentations",
+      "Contract Negotiation"
+    ],
+    "certifications": [
+      "APMP (Association of Proposal Management Professionals)",
+      "PMP",
+      "Salesforce Certified Administrator"
+    ],
+    "domain_experience": ["Financial Services", "Healthcare", "Logistics", "Government"],
+    "years_of_experience": 14,
+    "projects_delivered": 35,
+    "availability_percent": 80,
+    "location": "Delhi",
+    "billable_rate_band": "Principal",
+    "languages": ["English", "Hindi"]
+  },
+  {
+    "id": "EMP019",
+    "name": "Geeta Pillai",
+    "role": "UX/UI Designer",
+    "seniority": "Mid",
+    "department": "Project Delivery",
+    "skills": [
+      "UX Design",
+      "UI Design",
+      "Figma",
+      "Design Systems",
+      "User Research",
+      "Prototyping",
+      "Accessibility",
+      "WCAG",
+      "Salesforce Lightning Design System"
+    ],
+    "certifications": [
+      "Google UX Design Certificate",
+      "Nielsen Norman Group UX Certification"
+    ],
+    "domain_experience": ["E-Commerce", "Healthcare", "Financial Services"],
+    "years_of_experience": 5,
+    "projects_delivered": 9,
+    "availability_percent": 100,
+    "location": "Trivandrum",
+    "billable_rate_band": "Mid",
+    "languages": ["English", "Malayalam", "Tamil"]
+  },
+  {
+    "id": "EMP020",
+    "name": "Naveen Chandra",
+    "role": "Principal Consultant – Enterprise Architecture",
+    "seniority": "Principal",
+    "department": "Salesforce Practice",
+    "skills": [
+      "Enterprise Architecture",
+      "Salesforce Platform",
+      "Solution Design",
+      "TOGAF",
+      "Microservices",
+      "API Strategy",
+      "Data Architecture",
+      "Cloud Migration",
+      "Salesforce CPQ",
+      "Salesforce Revenue Cloud"
+    ],
+    "certifications": [
+      "Salesforce Certified Technical Architect",
+      "TOGAF 9 Certified",
+      "AWS Solutions Architect Professional",
+      "Salesforce Certified Application Architect"
+    ],
+    "domain_experience": ["Financial Services", "Telecom", "Healthcare", "Manufacturing"],
+    "years_of_experience": 17,
+    "projects_delivered": 30,
+    "availability_percent": 20,
+    "location": "Bangalore",
+    "billable_rate_band": "Principal",
+    "languages": ["English", "Kannada", "Hindi", "Telugu"]
+  }
+]
