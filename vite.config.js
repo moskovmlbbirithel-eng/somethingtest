@@ -377,6 +377,44 @@ export default defineConfig({
           });
         });
 
+        // ── 4. Ingest RFP — read file text, call Apex /ingest ──────────────
+        server.middlewares.use('/api/agentforce/ingest', async (req, res, next) => {
+          if (req.method !== 'POST') return next();
+
+          let bodyStr = '';
+          req.on('data', c => { bodyStr += c; });
+          req.on('end', async () => {
+            res.setHeader('Content-Type', 'application/json');
+            try {
+              const auth = await getCliAuth();
+              if (!auth) {
+                return res.end(JSON.stringify({ success: false, error: 'Not authenticated to Salesforce org.' }));
+              }
+
+              const sfRes = await fetch(`${auth.instanceUrl}/services/apexrest/bidsense/agentforce/v1/ingest`, {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Bearer ${auth.accessToken}`,
+                  'Content-Type': 'application/json'
+                },
+                body: bodyStr
+              });
+
+              const sfText = await sfRes.text();
+              if (!sfRes.ok) {
+                console.error('[Ingest] Apex error:', sfRes.status, sfText);
+                return res.end(JSON.stringify({ success: false, error: `Apex returned ${sfRes.status}: ${sfText.slice(0, 200)}` }));
+              }
+
+              const sfData = JSON.parse(sfText);
+              console.log('[Ingest] ✅ Success:', sfData.opportunityId, sfData.rfpId);
+              res.end(JSON.stringify(sfData));
+            } catch (e) {
+              console.error('[Ingest] Error:', e.message);
+              res.end(JSON.stringify({ success: false, error: e.message }));
+            }
+          });
+        });
 
       }
     }

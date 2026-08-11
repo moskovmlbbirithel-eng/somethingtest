@@ -1,49 +1,67 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header.jsx';
-import OpportunitySelector from './components/OpportunitySelector.jsx';
+import Dashboard from './components/Dashboard.jsx';
+import RfpUploader from './components/RfpUploader.jsx';
 import OpportunityDetails from './components/OpportunityDetails.jsx';
 import AnalysisResult from './components/AnalysisResult.jsx';
 import AskBidSenseChat from './components/AskBidSenseChat.jsx';
 
-import { getOpportunities, getOpportunityById } from './services/opportunityService.js';
+import { getOpportunityById } from './services/opportunityService.js';
 import { analyzeOpportunity } from './services/agentforceService.js';
 
-export default function App() {
-  const [opportunities, setOpportunities] = useState([]);
-  const [selectedOppId, setSelectedOppId] = useState('');
-  const [selectedOpp, setSelectedOpp] = useState(null);
+// Views / "pages"
+const VIEW = {
+  DASHBOARD: 'dashboard',
+  NEW_RFP:   'new_rfp',
+  OPP:       'opp',
+};
 
+export default function App() {
+  const [view, setView]               = useState(VIEW.DASHBOARD);
+  const [selectedOpp, setSelectedOpp] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState(null);
+  const [rfpResult, setRfpResult]     = useState(null);  // data returned by /ingest
 
-  // 1. Initial Load: Fetch list of Salesforce Opportunities
-  useEffect(() => {
-    async function loadInitialData() {
-      const list = await getOpportunities();
-      setOpportunities(list);
-      if (list.length > 0) {
-        setSelectedOppId(list[0].id);
-        setSelectedOpp(list[0]);
-      }
-    }
-    loadInitialData();
-  }, []);
-
-  // 2. Handle Opportunity Selection Change
-  const handleSelectOpportunity = async (id) => {
-    setSelectedOppId(id);
-    setAnalysisResult(null); // Reset previous analysis when switching opps
-    const oppDetails = await getOpportunityById(id);
-    setSelectedOpp(oppDetails);
+  // ── Navigate to Opp detail from Dashboard ───────────────────────────────────
+  const handleSelectOpportunity = async (opp) => {
+    setAnalysisResult(null);
+    setSelectedOpp(opp);
+    setView(VIEW.OPP);
   };
 
-  // 3. Main Action: Trigger Agentforce Bid Analysis
+  // ── Navigate to Opp after RFP ingestion ─────────────────────────────────────
+  const handleRfpSuccess = async (result) => {
+    setRfpResult(result);
+    setAnalysisResult(null);
+
+    // Build a minimal opp object from the ingest result
+    const opp = {
+      id:          result.opportunityId,
+      name:        result.rfpId ? `${result.opportunityId}` : result.opportunityId,
+      account:     '',
+      amount:      0,
+      stage:       'Qualification',
+      closeDate:   '',
+      description: result.summary,
+    };
+
+    // Try to load full details
+    try {
+      const full = await getOpportunityById(result.opportunityId);
+      if (full) Object.assign(opp, full);
+    } catch { /* use minimal */ }
+
+    setSelectedOpp(opp);
+    setView(VIEW.OPP);
+  };
+
+  // ── Trigger Agentforce bid analysis ─────────────────────────────────────────
   const handleAnalyzeBid = async () => {
-    if (!selectedOppId) return;
+    if (!selectedOpp?.id) return;
     setIsAnalyzing(true);
     try {
-      // Call isolated Agentforce Service
-      const result = await analyzeOpportunity(selectedOppId);
+      const result = await analyzeOpportunity(selectedOpp.id);
       setAnalysisResult(result);
     } catch (err) {
       console.error('Analysis failed:', err);
@@ -52,41 +70,89 @@ export default function App() {
     }
   };
 
+  // ── Back navigation ──────────────────────────────────────────────────────────
+  const goHome = () => {
+    setView(VIEW.DASHBOARD);
+    setSelectedOpp(null);
+    setAnalysisResult(null);
+    setRfpResult(null);
+  };
+
   return (
     <div className="app-container">
-      {/* Header Bar */}
-      <Header />
+      <Header
+        currentView={view}
+        onHome={goHome}
+        onNewRfp={() => setView(VIEW.NEW_RFP)}
+      />
 
-      {/* Main Single Page Container */}
       <main className="main-content">
-        {/* Step 1: Dropdown Selector */}
-        <OpportunitySelector
-          opportunities={opportunities}
-          selectedId={selectedOppId}
-          onSelectOpportunity={handleSelectOpportunity}
-        />
 
-        {/* Step 2: Selected Opportunity Summary & Analyze Button */}
-        <OpportunityDetails
-          opportunity={selectedOpp}
-          onAnalyze={handleAnalyzeBid}
-          isAnalyzing={isAnalyzing}
-        />
+        {/* ── DASHBOARD ──────────────────────────────────────────────── */}
+        {view === VIEW.DASHBOARD && (
+          <Dashboard
+            onSelectOpportunity={handleSelectOpportunity}
+            onNewRfp={() => setView(VIEW.NEW_RFP)}
+          />
+        )}
 
-        {/* Step 3: Analysis Results (rendered after Analyze Bid is clicked) */}
-        {analysisResult && (
+        {/* ── NEW RFP UPLOAD ─────────────────────────────────────────── */}
+        {view === VIEW.NEW_RFP && (
+          <RfpUploader onSuccess={handleRfpSuccess} />
+        )}
+
+        {/* ── OPPORTUNITY DETAIL + CHAT ──────────────────────────────── */}
+        {view === VIEW.OPP && selectedOpp && (
           <>
-            <AnalysisResult result={analysisResult} />
-            
-            {/* Step 4: AI / Agent Interaction Chat */}
-            <AskBidSenseChat opportunityId={selectedOppId} />
+            {/* RFP Analysis Preview if freshly ingested */}
+            {rfpResult && (
+              <div className="rfp-summary-banner">
+                <div className="rfp-banner-header">
+                  <span className="rfp-banner-icon">🤖</span>
+                  <strong>Agentforce RFP Analysis Complete</strong>
+                  <span className={`rfp-banner-badge ${rfpResult.recommendation === 'BID' ? 'bid' : 'nobid'}`}>
+                    {rfpResult.recommendation === 'BID' ? '✅ BID' : '🚫 NO-BID'} — {rfpResult.confidenceScore}% confidence
+                  </span>
+                </div>
+                <div className="rfp-banner-grid">
+                  <div className="rfp-banner-section">
+                    <div className="rfp-section-label">📋 Summary</div>
+                    <div className="rfp-section-body">{rfpResult.summary}</div>
+                  </div>
+                  <div className="rfp-banner-section">
+                    <div className="rfp-section-label">🎯 Scope</div>
+                    <div className="rfp-section-body">{rfpResult.scope}</div>
+                  </div>
+                  <div className="rfp-banner-section">
+                    <div className="rfp-section-label">⚠️ Gaps</div>
+                    <div className="rfp-section-body">{rfpResult.gaps}</div>
+                  </div>
+                  <div className="rfp-banner-section">
+                    <div className="rfp-section-label">👥 SMEs Required</div>
+                    <div className="rfp-section-body">{rfpResult.smesRequired}</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Opportunity Details Card */}
+            <OpportunityDetails
+              opportunity={selectedOpp}
+              onAnalyze={handleAnalyzeBid}
+              isAnalyzing={isAnalyzing}
+            />
+
+            {/* Analysis Result */}
+            {analysisResult && <AnalysisResult result={analysisResult} />}
+
+            {/* Chat with Agentforce */}
+            <AskBidSenseChat opportunityId={selectedOpp.id} />
           </>
         )}
       </main>
 
-      {/* Internal App Footer */}
       <footer className="footer-bar">
-        BidSense MVP — Agentforce & MCP Hackathon Demonstration — Salesforce Internal Tooling
+        BidSense AI — Agentforce &amp; MCP Hackathon Demo — Salesforce Internal Tooling
       </footer>
     </div>
   );

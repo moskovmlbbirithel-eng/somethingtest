@@ -577,3 +577,432 @@ body {
   background-color: white;
   margin-top: 40px;
 }
+
+/* ── Header Nav ─────────────────────────────────────────────────────────────── */
+.header-nav {
+  display: flex;
+  gap: 8px;
+}
+.header-nav-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #cdd9e8;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.header-nav-btn:hover,
+.header-nav-btn.active {
+  background: var(--sf-blue-primary);
+  border-color: var(--sf-blue-primary);
+  color: #fff;
+}
+
+/* ── Dashboard Page ─────────────────────────────────────────────────────────── */
+.dashboard-page {
+  padding: 4px 0 40px;
+}
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.dash-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.dash-subtitle {
+  font-size: 14px;
+  color: var(--sf-text-muted);
+  margin-top: 4px;
+}
+.new-rfp-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--sf-blue-primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(1,118,211,0.3);
+}
+.new-rfp-btn:hover {
+  background: var(--sf-blue-hover);
+  transform: translateY(-1px);
+}
+
+/* Stats Row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: white;
+  border-radius: 10px;
+  padding: 18px 20px;
+  box-shadow: var(--sf-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.stat-icon { font-size: 22px; margin-bottom: 4px; }
+.stat-value { font-size: 28px; font-weight: 700; color: #0f172a; }
+.stat-label { font-size: 12px; color: var(--sf-text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Search */
+.dash-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  border: 1px solid var(--sf-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  box-shadow: var(--sf-shadow);
+}
+.dash-search-icon { font-size: 16px; }
+.dash-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+}
+
+/* Opp Grid */
+.opp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.opp-card {
+  background: white;
+  border: 1px solid var(--sf-border);
+  border-radius: 10px;
+  padding: 18px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: var(--sf-shadow);
+}
+.opp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  border-color: var(--sf-blue-primary);
+}
+.opp-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.opp-card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.3;
+}
+.opp-card-account {
+  font-size: 12px;
+  color: var(--sf-text-muted);
+  margin-bottom: 12px;
+}
+.opp-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.opp-stage-chip {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+.opp-card-amount {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.opp-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 10px;
+  margin-top: 4px;
+}
+.opp-close-date { font-size: 12px; color: var(--sf-text-muted); }
+.opp-card-cta { font-size: 13px; font-weight: 600; color: var(--sf-blue-primary); }
+.dash-badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 700; white-space: nowrap; }
+.badge-bid   { background: #dcfce7; color: #15803d; }
+.badge-nobid { background: #fee2e2; color: #dc2626; }
+
+/* Loading / Empty */
+.dash-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 20px;
+  color: var(--sf-text-muted);
+}
+.dash-spinner {
+  width: 36px; height: 36px;
+  border: 3px solid #e2e8f0;
+  border-top-color: var(--sf-blue-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.dash-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--sf-text-muted);
+}
+.dash-empty-icon { font-size: 48px; margin-bottom: 12px; }
+
+/* ── RFP Uploader Page ──────────────────────────────────────────────────────── */
+.rfp-uploader-page {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 60px;
+}
+.rfp-uploader-container {
+  width: 100%;
+  max-width: 620px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+.rfp-uploader-header {
+  background: linear-gradient(135deg, #001639 0%, #0176D3 100%);
+  padding: 36px 36px 28px;
+  text-align: center;
+  color: white;
+}
+.rfp-uploader-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  width: 72px; height: 72px;
+  margin-bottom: 14px;
+}
+.rfp-uploader-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.rfp-uploader-subtitle { font-size: 13px; color: #b0c4de; line-height: 1.6; }
+
+.rfp-form { padding: 32px 36px; display: flex; flex-direction: column; gap: 20px; }
+.rfp-field { display: flex; flex-direction: column; gap: 6px; }
+.rfp-field-label { font-size: 13px; font-weight: 600; color: #374151; }
+.rfp-field-input {
+  padding: 10px 14px;
+  border: 1px solid var(--sf-border);
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+.rfp-field-input:focus {
+  border-color: var(--sf-blue-primary);
+  box-shadow: 0 0 0 3px rgba(1,118,211,0.12);
+}
+
+/* Dropzone */
+.rfp-dropzone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 10px;
+  padding: 24px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  background: #f8fafc;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.rfp-dropzone.drag-over {
+  border-color: var(--sf-blue-primary);
+  background: rgba(1,118,211,0.04);
+}
+.rfp-dropzone.has-file {
+  border-color: #22c55e;
+  border-style: solid;
+  background: #f0fdf4;
+}
+.dropzone-placeholder { text-align: center; color: var(--sf-text-muted); }
+.dropzone-upload-icon { font-size: 32px; display: block; margin-bottom: 8px; }
+.dropzone-text { font-size: 14px; margin-bottom: 4px; }
+.dropzone-hint { font-size: 12px; color: #94a3b8; }
+.dropzone-file-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.dropzone-file-icon { font-size: 28px; }
+.dropzone-file-name { font-weight: 600; font-size: 14px; color: #0f172a; }
+.dropzone-file-size { font-size: 12px; color: var(--sf-text-muted); }
+.dropzone-clear-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #94a3b8;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.dropzone-clear-btn:hover { background: #fee2e2; color: #dc2626; }
+
+/* Loading state */
+.rfp-loading {
+  text-align: center;
+  padding: 8px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.rfp-loading-spinner {
+  width: 32px; height: 32px;
+  border: 3px solid #e2e8f0;
+  border-top-color: var(--sf-blue-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.rfp-loading-text { font-size: 14px; color: var(--sf-text-muted); }
+.rfp-loading-steps { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.step-chip {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: #e2e8f0;
+  color: #64748b;
+}
+.step-chip.active {
+  background: rgba(1,118,211,0.15);
+  color: var(--sf-blue-primary);
+  font-weight: 600;
+}
+
+/* Error */
+.rfp-error-banner {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.rfp-error-retry {
+  background: none;
+  border: 1px solid #dc2626;
+  color: #dc2626;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Submit */
+.rfp-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background: var(--sf-blue-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  box-shadow: 0 2px 8px rgba(1,118,211,0.3);
+}
+.rfp-submit-btn:hover:not(.disabled) {
+  background: var(--sf-blue-hover);
+  transform: translateY(-1px);
+}
+.rfp-submit-btn.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ── RFP Summary Banner (shown on Opp page after ingest) ─────────────────────── */
+.rfp-summary-banner {
+  background: white;
+  border: 1px solid var(--sf-border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: var(--sf-shadow);
+}
+.rfp-banner-header {
+  background: linear-gradient(90deg, #001639, #0176D3);
+  color: white;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+}
+.rfp-banner-icon { font-size: 20px; }
+.rfp-banner-badge {
+  margin-left: auto;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.rfp-banner-badge.bid   { background: #dcfce7; color: #15803d; }
+.rfp-banner-badge.nobid { background: #fee2e2; color: #dc2626; }
+.rfp-banner-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+.rfp-banner-section {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  border-right: 1px solid #f1f5f9;
+}
+.rfp-banner-section:nth-child(even) { border-right: none; }
+.rfp-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--sf-text-muted);
+  margin-bottom: 6px;
+}
+.rfp-section-body {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.5;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
